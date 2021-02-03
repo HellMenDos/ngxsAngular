@@ -2,3 +2,8 @@
 
 <button (click)="increment()">Add</button>
 <button (click)="decrement()">Minus</button>
+<button (click)="getAllTodos()">Get</button>
+
+<ul>
+    <li *ngFor="let item of realTodos">{{item.id}} - {{item.title}} </li>
+</ul>

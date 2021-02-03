@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Increment,Decriment} from './state/action/todo.action';
+import {Increment,Decriment,GetTodos} from './state/action/todo.action';
 import {Select, Store} from '@ngxs/store';
 import { TodoState,CounterInterfase } from './state/todo.state'
 import {Observable} from 'rxjs';
-import {Todo} from './state/Todo'
+import {Todo} from './state/Todo';
+
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,16 @@ import {Todo} from './state/Todo'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @Select(TodoState.GetCounter) counter: Observable<Todo>;
   
+  @Select(TodoState.GetCounter) counter: Observable<number>;
+  @Select(TodoState.GetTodos) Todos: Observable<Todo[]>;
+
   realCount: number
+  realTodos: any
+
   constructor(private store: Store) {
   	this.realCount = 0
+    this.realTodos = []
   }
 
   
@@ -26,6 +32,11 @@ export class AppComponent implements OnInit {
   	this.store.dispatch(new Decriment(1));
   }
 
+  getAllTodos() {
+    this.store.dispatch(new GetTodos());
+    this.Todos.subscribe(x => this.realTodos = x)
+
+  }
 
   ngOnInit() {
         this.counter.subscribe(x => this.realCount = x)

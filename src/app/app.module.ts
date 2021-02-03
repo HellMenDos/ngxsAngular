@@ -7,6 +7,7 @@ import {NgxsModule} from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {TodoState} from './state/todo.state';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {TodoState} from './state/todo.state';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgxsModule.forRoot([TodoState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
